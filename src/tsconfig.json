@@ -10,8 +10,13 @@
     "outDir": "../dist/out-tsc",
     "sourceMap": true,
     "target": "es5",
+    
     "typeRoots": [
       "../node_modules/@types"
-    ]
+    
+    ],
+     "files": ["../node_modules/firebase/firebase.d.ts"]
   }
 }
+
+
