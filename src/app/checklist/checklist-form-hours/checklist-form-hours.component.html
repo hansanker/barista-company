@@ -1,0 +1,13 @@
+<div [formGroup]="hoursForm">
+    <div class="form-group col-xs-6">
+        <label>van</label>
+        <input type="text" class="form-control" formControlName="van">
+        <small [hidden]="hoursForm.controls.van.valid" class="text-danger">
+            Street is required
+        </small>
+    </div>
+    <div class="form-group col-xs-6">
+        <label>tot</label>
+        <input type="text" class="form-control" formControlName="tot">
+    </div>
+</div>
