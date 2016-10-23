@@ -1,18 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 import { MaterializeModule } from 'angular2-materialize';
 import { AngularFireModule } from 'angularfire2';
 
 
 import { AppComponent } from './app.component';
+import { AppRoutes } from './app.routes';
 import { BaristaComponent } from './barista/barista.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BackofficeComponent } from './backoffice/backoffice.component';
 import { AuthComponent } from './auth/auth.component';
 import { ChecklistFormComponent } from './checklist/checklist-form/checklist-form.component';
+import { ChecklistBaristaComponent } from './checklist/checklist-barista/checklist-barista.component';
+import { ChecklistFormHoursComponent } from './checklist/checklist-form-hours/checklist-form-hours.component';
 
   // Initialize Firebase
   export const firebaseConfig = {
@@ -30,14 +34,18 @@ import { ChecklistFormComponent } from './checklist/checklist-form/checklist-for
     NavbarComponent,
     BackofficeComponent,
     AuthComponent,
-    ChecklistFormComponent
+    ChecklistFormComponent,
+    ChecklistBaristaComponent,
+    ChecklistFormHoursComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MaterializeModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    RouterModule.forRoot(AppRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
