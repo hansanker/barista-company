@@ -6,7 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { MaterializeModule } from 'angular2-materialize';
 import { AngularFireModule } from 'angularfire2';
-
+import { MomentModule } from 'angular2-moment';
+import * as moment from 'moment'
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -45,7 +46,8 @@ import { ChecklistFormHoursComponent } from './checklist/checklist-form-hours/ch
     HttpModule,
     MaterializeModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    MomentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

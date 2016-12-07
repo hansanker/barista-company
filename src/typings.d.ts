@@ -3,5 +3,8 @@
 // https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html
 
 ///<reference path="../node_modules/firebase/firebase.d.ts" />
+///<reference path="../node_modules/moment/moment.d.ts" />
+
+
 declare var System: any;
 //declare var require: any;

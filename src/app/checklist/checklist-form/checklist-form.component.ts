@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
-import { Checklist} from'../checklist.interface';
+import { Checklist } from '../checklist.interface';
+
+import * as moment_ from 'moment';
 
 @Component({
   selector: 'app-checklist-form',
@@ -25,8 +27,16 @@ export class ChecklistFormComponent implements OnInit {
   initAddress() {
     // initialize our address
     return this._fb.group({
-      van: ['', Validators.required],
-      tot: ['']
+      day: [moment_().format("DD-MM-YYYY")],
+      opbouwVan: [''],
+      opbouwTot: [''],
+      opbouwUren: ['0'],
+      uitvoeringVan: [''],
+      uitvoeringTot: [''],
+      uitvoeringUren: ['0'],
+      afbouwVan: [''],
+      afbouwTot: [''],
+      afbouwUren: ['0']
     });
   }
 
@@ -34,6 +44,7 @@ export class ChecklistFormComponent implements OnInit {
     // add address to the list
     const control = <FormArray>this.myForm.controls['hours'];
     control.push(this.initAddress());
+    
   }
 
   removeAddress(i: number) {

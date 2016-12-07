@@ -6,10 +6,22 @@ export interface Checklist {
     // day: string;
     // time: string;
     // alterEgo?: string;
-       hours: Hours[];
+    hours: Hours[];
+
 }
 
-export interface Hours {
-    van: string;  
+export class Hours {
+    day: Date;
+    van: string;
     tot: string;
+    uren: string;
+    opbouwVan: string;
+    opbouwTot: string;
+    opbouwUren: number;
+    uitvoeringVan: string;
+    uitvoeringTot: string;
+    uitvoeringUren: number;
+    afbouwVan: string;
+    afbouwTot: string;
+    afbouwUren: number;
 }

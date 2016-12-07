@@ -11,7 +11,7 @@ export const ChecklistRoutes = [
     component: ChecklistBaristaComponent
   },
   {
-    path: 'checklistForm',
+    path: 'checklistBarista/checklistForm',
     component: ChecklistFormComponent
   }  
 ];
