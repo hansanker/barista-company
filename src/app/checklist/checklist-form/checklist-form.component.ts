@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Checklist } from '../checklist.interface';
 
-import * as moment_ from 'moment';
+// import * as moment_ from 'moment';
 
 @Component({
   selector: 'app-checklist-form',
@@ -27,7 +27,8 @@ export class ChecklistFormComponent implements OnInit {
   initAddress() {
     // initialize our address
     return this._fb.group({
-      day: [moment_().format("DD-MM-YYYY")],
+      // day: [moment_().format("DD-MM-YYYY")],
+      day: ['12-12-2015'],
       opbouwVan: [''],
       opbouwTot: [''],
       opbouwUren: ['0'],
