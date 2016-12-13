@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col s6 offset-s3 center" *ngIf="user">
+    <h1>Profile</h1>
+    <div class="img-wrapper"><img [src]="user.image || 'assets/images/user.png'"></div>
+    <form class="col s12" #profileForm="ngForm"  (submit)="submit(profileForm.value)">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="name" name="name" type="text" [(ngModel)]="user.name" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>Choose image</span>
+            <input type="file" accept="image/*" (change)="getNewImage($event)">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+      </div>
+      <a class="waves-effect waves-block waves-light btn" [ngClass]="{disabled: !profileForm.valid}"
+         (click)="submit(profileForm.value)">Update</a>
+    </form>
+  </div>
+</div>
