@@ -1,0 +1,19 @@
+<nav>
+  <div class="nav-wrapper container">
+    <a href="#" class="brand-logo">Logo</a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse" *ngIf="isLoggedIn">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="right hide-on-med-and-down" *ngIf="isLoggedIn">
+      <li>
+        <a [routerLink]="['/barista/checklist']">Checklist</a>
+      </li>
+      <li>
+        <a [routerLink]="['/profile']">Profile</a>
+      </li>
+      <li>
+        <a (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
