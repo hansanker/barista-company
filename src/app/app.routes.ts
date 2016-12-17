@@ -13,7 +13,7 @@ export const AppRoutes = [
         component: ChecklistBaristaComponent,
       },
       {
-        path: 'checklistForm',
+        path: 'checklist/checklistForm',
         component: ChecklistFormComponent
       },
       {

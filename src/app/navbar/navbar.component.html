@@ -6,10 +6,10 @@
     </a>
     <ul class="right hide-on-med-and-down" *ngIf="isLoggedIn">
       <li>
-        <a [routerLink]="['/barista/checklist']">Checklist</a>
+        <a routerLink="/barista/checklist">Checklist</a>
       </li>
       <li>
-        <a [routerLink]="['/profile']">Profile</a>
+        <a routerLink="/profile">Profile</a>
       </li>
       <li>
         <a (click)="logout()">Logout</a>
