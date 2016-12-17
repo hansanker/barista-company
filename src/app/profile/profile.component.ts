@@ -30,6 +30,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
+  getProfileImage(user: any) {
+    return user.image || 'assets/images/user.png';
+  }
+
   getNewImage(event) {
     let files = event.target.files;
     if (FileReader && files && files.length) {

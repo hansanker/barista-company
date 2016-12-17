@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s6 offset-s3 center" *ngIf="user">
     <h1>Profile</h1>
-    <div class="img-wrapper"><img [src]="user.image || 'assets/images/user.png'"></div>
+    <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + getProfileImage(user) + ')'}"></div>
     <form class="col s12" #profileForm="ngForm"  (submit)="submit(profileForm.value)">
       <div class="row">
         <div class="input-field col s12">
