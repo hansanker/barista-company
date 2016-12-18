@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit {
     this.af.auth.login({method: AuthMethods.Popup, provider: AuthProviders.Google})
       .then(authData => {
         this.af.database.object(`users/${authData.uid}`).subscribe(user => {
-          if (!user) {                        // save user info
+          if (user.$value === null) {                        // save user info
             let user = {
               name: authData.auth.displayName || authData.auth.email,
               role: Roles.BARRISTA
