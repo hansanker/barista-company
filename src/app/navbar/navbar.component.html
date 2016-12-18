@@ -1,13 +1,13 @@
 <nav>
   <div class="nav-wrapper container">
     <a href="#" class="brand-logo">Logo</a>
-    <a materialize="sideNav" [materializeParams]="[{edge:'left'}]" href="#" data-activates="slide-out"
+    <a materialize="sideNav" [materializeParams]="[{edge:'left', closeOnClick: true}]" href="#" data-activates="slide-out"
        class="button-collapse" *ngIf="isLoggedIn">
       <i class="material-icons" >menu</i>
     </a>
     <ul class="right hide-on-med-and-down" *ngIf="isLoggedIn">
       <li routerLinkActive="active">
-        <a  routerLink="/barista/checklist">Checklist</a>
+        <a  routerLink="/barista/checklist">Checklists</a>
       </li>
       <li routerLinkActive="active">
         <a  routerLink="/profile">Profile</a>
@@ -18,7 +18,7 @@
     </ul>
     <ul class="side-nav" id="slide-out">
       <li routerLinkActive="active">
-        <a  routerLink="/barista/checklist"><i class="material-icons">view_headline</i>Checklist</a>
+        <a  routerLink="/barista/checklist"><i class="material-icons">view_headline</i>Checklists</a>
       </li>
       <li routerLinkActive="active">
         <a  routerLink="/profile"><i class="material-icons">account_box</i>Profile</a>

@@ -12,11 +12,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private af: AngularFire) {
     this.af.auth.subscribe(authData => {
-      if (authData) {
-        this.isLoggedIn = true;
-      } else {
-        this.isLoggedIn = false;
-      }
+      this.isLoggedIn = !!authData;
     })
   }
 
