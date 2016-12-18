@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import {toast } from "angular2-materialize";
 import { AngularFire } from 'angularfire2';
 import * as firebase from 'firebase';
 
@@ -11,7 +12,9 @@ export class ProfileComponent implements OnInit {
 
   user: any;
   userRef: any;
-  newImage: string;
+  updatingImage = false;
+  updatingProfile = false;
+  //globalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(private af: AngularFire) {
     this.af.auth.subscribe(authData => {
@@ -19,7 +22,6 @@ export class ProfileComponent implements OnInit {
         this.userRef = this.af.database.object(`users/${authData.uid}`);
         this.userRef.subscribe(userData => {
           this.user = userData;
-          this.newImage = null;
         });
       } else {
         this.user = null;
@@ -34,41 +36,58 @@ export class ProfileComponent implements OnInit {
     return user.image || 'assets/images/user.png';
   }
 
-  getNewImage(event) {
+  changeImage(event) {
+    this.updatingImage = true;
     let files = event.target.files;
     if (FileReader && files && files.length) {
       let fr = new FileReader();
       fr.onload = () => {
-        this.newImage = fr.result;
+        this.updateProfileImage(fr.result).then(() => {
+          this.updatingImage = false;
+          this.triggerToast('Your image was updated');
+        }, (err) => {
+          this.updatingImage = false;
+          this.triggerToast(err.message || 'An error occurred');
+        })
       };
       fr.readAsArrayBuffer(files[0]);
     }
   }
 
-  submit(profileForm: any) {
-    if (this.newImage) {
-      this.uploadFile().then(imageUrl => {
-        this.updateProfile({
-          name: profileForm.name,
+  updateProfile(profileForm: any) {
+    this.updatingProfile = true;
+    this.userRef.update({
+      name: profileForm.name
+    }).then(
+      () => {
+        this.updatingProfile = false;
+        this.triggerToast('Your profile was updated');
+      },
+      (err) => {
+        this.updatingProfile = false;
+        this.triggerToast(err.message || 'An error occurred');
+      }
+    );
+  }
+
+  private updateProfileImage(image: string) {
+    return new Promise((resolve,reject) => {
+      this.uploadImage(image).then(imageUrl => {
+        this.userRef.update({
           image: imageUrl
-        });
-      })
-    } else {
-      this.updateProfile({
-        name: profileForm.name
+        }).then(
+          () => resolve(),
+          (err) => reject(err)
+        );
       });
-    }
+    });
   }
 
-  private updateProfile(newProfile) {
-    this.userRef.update(newProfile);
-  }
-
-  private uploadFile() {
+  private uploadImage(image: string) {
     return new Promise((resolve, reject) => {
       let storage = firebase.storage().ref();
       let imgRef = storage.child(`images/${this.user.$key}`);
-      let uploadTask = imgRef.put(this.newImage);
+      let uploadTask = imgRef.put(image);
       uploadTask.on('state_changed',
         () => {},
         (err) =>  { reject(err); },
@@ -76,6 +95,10 @@ export class ProfileComponent implements OnInit {
           resolve(uploadTask.snapshot.downloadURL);
         });
     });
+  }
+
+  private triggerToast(message: string) {
+    toast(message, 3000);
   }
 
 }
