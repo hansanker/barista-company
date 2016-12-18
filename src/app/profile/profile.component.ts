@@ -14,7 +14,6 @@ export class ProfileComponent implements OnInit {
   userRef: any;
   updatingImage = false;
   updatingProfile = false;
-  //globalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(private af: AngularFire) {
     this.af.auth.subscribe(authData => {
