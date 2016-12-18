@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
     this.af.auth.subscribe(authData => {
       if (authData) {
         this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
       }
     })
   }
