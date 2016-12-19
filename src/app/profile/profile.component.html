@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col s6 offset-s3 center" *ngIf="user">
+  <div class="col m6 s10 offset-m3 offset-s1 center" *ngIf="user">
     <h1>Profile</h1>
     <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + getProfileImage(user) + ')'}"></div>
     <form class="change-image">
@@ -11,7 +11,7 @@
         </div>
       </div>
     </form>
-    <form #profileForm="ngForm">
+    <form class="profile" #profileForm="ngForm">
       <div class="input-field">
         <input id="name" name="name" type="text" [(ngModel)]="user.name" required>
       </div>
