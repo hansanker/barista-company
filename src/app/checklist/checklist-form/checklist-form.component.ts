@@ -30,7 +30,7 @@ export class ChecklistFormComponent implements OnInit {
 
   mask = [/\d/, /\d/, ':', /\d/, /\d/];
 
-  constructor(private route: ActivatedRoute, private _fb: FormBuilder, private af: AngularFire) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private af: AngularFire) {
     this.af.auth.subscribe(authData => {
       if (authData) {
         this.userId = authData.uid;
@@ -78,15 +78,15 @@ export class ChecklistFormComponent implements OnInit {
   }
 
   private buildForm() {
-    this.checklistForm = this._fb.group({
+    this.checklistForm = this.fb.group({
       customer: [this.checklist.customer, Validators.required],
       location: [this.checklist.location],
-      days: this._fb.array(this.checklist.days.map(day => this.initDay(day)))
+      days: this.fb.array(this.checklist.days.map(day => this.initDay(day)))
     });
   }
 
   private initDay(day: ChecklistDay) {
-    let dayForm = this._fb.group({
+    let dayForm = this.fb.group({
       'date': day.date,
       'startupStart': [day.startupStart, Validators.required],
       'startupEnd': [day.startupEnd, Validators.required],
