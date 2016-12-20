@@ -4,8 +4,9 @@ import {Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
 import { AngularFire } from 'angularfire2';
 import { Checklist } from '../../shared/checklist';
 import { ChecklistDay } from '../../shared/checklistDay';
-import { utils } from '../../shared/utils';
 import { ChecklistStatuses } from "../../shared/checklistStatuses";
+import { ChecklistExpense } from '../../shared/checklistExpense';
+import { utils } from '../../shared/utils';
 import { toast } from "angular2-materialize";
 
 import * as moment from 'moment';
@@ -20,13 +21,15 @@ export class ChecklistFormComponent implements OnInit {
   checklistForm: FormGroup;
   checklistId: string;
   userId: string;
-  checklist: Checklist = {
-    customer: '',
-    location: '',
-    user: '',
-    status: null,
-    days: []
-  };
+  checklist: Checklist;
+  // checklist: Checklist = {
+  //   customer: '',
+  //   location: '',
+  //   user: '',
+  //   status: null,
+  //   days: [],
+  //   expenses: []
+  // };
 
   mask = [/\d/, /\d/, ':', /\d/, /\d/];
 
@@ -43,6 +46,10 @@ export class ChecklistFormComponent implements OnInit {
       this.checklistId = params['id'];
       this.af.database.object(`checklists/${this.checklistId}`).subscribe((checklist) => {
         this.checklist = checklist;
+        // TODO refactor it later
+        if (!this.checklist.expenses) {
+          this.checklist.expenses = [];
+        }
         this.buildForm();
       });
     });
@@ -53,8 +60,18 @@ export class ChecklistFormComponent implements OnInit {
     control.push(this.initDay({date: date}));
   }
 
+  addExpense(date: string) {
+    const control = <FormArray>this.checklistForm.controls['expenses'];
+    control.push(this.initExpense({date: date}));
+  }
+
   removeDate(i: number) {
     const control = <FormArray>this.checklistForm.controls['days'];
+    control.removeAt(i);
+  }
+
+  removeExpense(i: number) {
+    const control = <FormArray>this.checklistForm.controls['expenses'];
     control.removeAt(i);
   }
 
@@ -81,7 +98,8 @@ export class ChecklistFormComponent implements OnInit {
     this.checklistForm = this.fb.group({
       customer: [this.checklist.customer, Validators.required],
       location: [this.checklist.location],
-      days: this.fb.array(this.checklist.days.map(day => this.initDay(day)))
+      days: this.fb.array(this.checklist.days.map(day => this.initDay(day))),
+      expenses: this.fb.array((this.checklist.expenses).map(expense => this.initExpense(expense)))
     });
   }
 
@@ -91,13 +109,13 @@ export class ChecklistFormComponent implements OnInit {
         'date': day.date,
         'startupStart': [day.startupStart, Validators.required],
         'startupEnd': [day.startupEnd, Validators.required],
-        'startupTotal': day.startupTotal,
+        'startupTotal': [day.startupTotal, Validators.required],
         'deliveryStart': [day.deliveryStart, Validators.required],
         'deliveryEnd': [day.deliveryEnd, Validators.required],
-        'deliveryTotal': day.deliveryTotal,
+        'deliveryTotal': [day.deliveryTotal, Validators.required],
         'cleanupStart': [day.cleanupStart, Validators.required],
         'cleanupEnd': [day.cleanupEnd, Validators.required],
-        'cleanupTotal': day.cleanupTotal,
+        'cleanupTotal': [day.cleanupTotal, Validators.required],
         'total': day.total
       }),
       startupStart = dayForm.controls['startupStart'],
@@ -142,6 +160,15 @@ export class ChecklistFormComponent implements OnInit {
     });
 
     return dayForm;
+  }
+
+  private initExpense(expense: ChecklistExpense) {
+    return this.fb.group({
+      'date': [expense.date, Validators.required],
+      'amount': [expense.amount, Validators.required],
+      'type': [expense.type, Validators.required],
+      'remark': expense.remark
+    })
   }
 
   private calculateTheDifference(date: string, start: string, end: string) {

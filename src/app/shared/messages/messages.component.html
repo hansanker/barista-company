@@ -1,15 +1,14 @@
 <div class="col s12">
   <h3 class="center">Messages</h3>
-  <form #messageForm="ngForm" (submit)="sendMessage(messageForm.value)">
+  <form #messageForm="ngForm" >
     <div class="row">
       <div class="input-field col m10 s12">
         <textarea id="message" name="message" class="materialize-textarea"
-                  [(ngModel)]="message" required></textarea>
-        <label for="message">Enter new message</label>
+                  [(ngModel)]="message" placeholder="Enter your message" required></textarea>
       </div>
       <div class="input-field col m2 s12">
-        <button type="submit" class="waves-effect waves-light btn-block btn"
-                [ngClass]="{disabled: !messageForm.valid}">Send</button>
+        <a class="waves-effect waves-light waves-block btn" (click)="sendMessage(messageForm.value)"
+                [ngClass]="{disabled: !messageForm.valid}">Send</a>
       </div>
     </div>
   </form>

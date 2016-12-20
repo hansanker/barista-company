@@ -111,13 +111,13 @@
               </div>
             </div>
           </div>
-          <div class="row total title">
-            <div class="col s6">
+          <div class="row total ">
+            <div class="col s6 title">
               Total: {{checklistForm.controls.days.controls[i].controls.total.value}}
             </div>
             <div class="col s6">
-              <a class="remove text-red" (click)="removeDate(i)" *ngIf="i > 0">
-                Remove day <i class="material-icons">delete</i>
+              <a class="waves-effect waves-light btn red remove" (click)="removeDate(i)" *ngIf="i > 0">
+                Delete<i class="material-icons">delete</i>
               </a>
             </div>
           </div>
@@ -136,13 +136,59 @@
            (click)="addDate(date.value)">Add new date</a>
       </div>
     </div>
-    <div class="row">
+
+    <div class="row" formArrayName="expenses">
       <div class="col s12">
-        <a class="waves-effect waves-light btn" (click)="save(checklistForm.value)">Save</a>
-        <a class="waves-effect waves-light btn" [ngClass]="{disabled: checklistForm.invalid}"
-           (click)="submit()">Submit</a>
+        <h3 class="center">Expenses</h3>
+        <div class="row"
+             *ngFor="let expense of checklistForm.controls.expenses.controls; let i = index" [formGroupName]="i">
+          <div class="col s12">
+            <h5 class="center">{{expense.date}}</h5>
+          </div>
+          <div class="col m2 s6 input-field">
+            <input type="text" id="type" name="type" placeholder="Type" formControlName="type">
+          </div>
+          <div class="col m2 s6 input-field">
+            <input type="number" id="amount" name="type" placeholder="Amount" formControlName="amount">
+            <label for="amount">{{expense.amount}}</label>
+          </div>
+          <div class="col m5 s12 input-field">
+            <input type="text" id="remark" name="type" placeholder="Remark" formControlName="remark">
+            <label for="remark">{{expense.remark}}</label>
+          </div>
+          <div class="col m3 s12">
+            <a class="waves-effect waves-light waves-block btn red remove" (click)="removeExpense()">
+              Delete<i class="material-icons">delete</i>
+            </a>
+          </div>
+        </div>
+
+        <div class="row new-date">
+          <div class="col m4 s12">
+            <input materialize="pickadate" placeholder="Choose a date" #date
+                   [materializeParams]="[{format: getDateFormat()}]"
+                   type="text" />
+          </div>
+          <div class="col m4 s12">
+            <a class="waves-effect waves-light waves-block btn" [ngClass]="{disabled: !date.value}"
+               (click)="addExpense(date.value)">Add new expense</a>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col s6 m4">
+        <a class="waves-effect waves-light waves-block btn red lighten-1" (click)="save(checklistForm.value)">
+          Save checklist
+        </a>
+      </div>
+      <div class="col s6 m4">
+        <a class="waves-effect waves-light waves-block btn" [ngClass]="{disabled: checklistForm.invalid}"
+           (click)="submit()">Submit checklist</a>
+      </div>
+    </div>
+
   </form>
 
   <app-messages [checklistId]="checklistId"></app-messages>
