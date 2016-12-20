@@ -18,16 +18,17 @@ export class MessagesComponent implements OnInit {
 
   constructor(private af: AngularFire) {
     this.af.auth.subscribe(authData => {
-      this.userId = authData.uid;
+      if (authData) {
+        this.userId = authData.uid;
+      }
     });
   }
 
   ngOnInit() {
-    this.af.database.list(`checklists/${this.checklistId}/messages`, {query: {
-      orderByChild: 'time'
-    }}).subscribe(messages => {
-      this.messages = messages;
-    })
+    firebase.database().ref(`checklists/${this.checklistId}/messages`)
+      .on('child_added', (snapshot) => {
+        this.messages.unshift(snapshot.val());
+      });
   }
 
   sendMessage(messageForm: any) {
