@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
+import { TextMaskModule } from 'angular2-text-mask';
 import { MaterializeModule } from 'angular2-materialize';
 import { AngularFireModule } from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
@@ -18,14 +18,15 @@ import { ChecklistFormComponent } from './checklist/checklist-form/checklist-for
 import { ChecklistBaristaComponent } from './checklist/checklist-barista/checklist-barista.component';
 import { ChecklistFormHoursComponent } from './checklist/checklist-form-hours/checklist-form-hours.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MessagesComponent } from './shared/messages/messages.component';
 
   // Initialize Firebase
   export const firebaseConfig = {
-    apiKey: "AIzaSyCWYY3poe4SpATY-tx2FAIaou-ToD2I1wM",
-    authDomain: "baristacompany-b618b.firebaseapp.com",
-    databaseURL: "https://baristacompany-b618b.firebaseio.com",
-    storageBucket: "baristacompany-b618b.appspot.com",
-    messagingSenderId: "623851489264"
+    apiKey: "AIzaSyDTywUOqrAU61m1jEGjExF8ep6EjwI8x5M",
+    authDomain: "barista-5651a.firebaseapp.com",
+    databaseURL: "https://barista-5651a.firebaseio.com",
+    storageBucket: "barista-5651a.appspot.com",
+    messagingSenderId: "1091191482407"
   };
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ProfileComponent } from './profile/profile.component';
     ChecklistFormComponent,
     ChecklistBaristaComponent,
     ChecklistFormHoursComponent,
-    ProfileComponent
+    ProfileComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { ProfileComponent } from './profile/profile.component';
     MaterializeModule,
     AngularFireModule.initializeApp(firebaseConfig),
     RouterModule.forRoot(AppRoutes),
+    TextMaskModule,
     MomentModule
   ],
   providers: [
