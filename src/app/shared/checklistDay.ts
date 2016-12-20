@@ -9,4 +9,5 @@ export interface ChecklistDay {
   cleanupStart?: string;
   cleanupEnd?: string;
   cleanupTotal?: string;
+  total?: string;
 }

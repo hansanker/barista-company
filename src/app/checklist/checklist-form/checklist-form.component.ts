@@ -86,18 +86,20 @@ export class ChecklistFormComponent implements OnInit {
   }
 
   private initDay(day: ChecklistDay) {
+    //TODO refactor this shit
     let dayForm = this.fb.group({
-      'date': day.date,
-      'startupStart': [day.startupStart, Validators.required],
-      'startupEnd': [day.startupEnd, Validators.required],
-      'startupTotal': day.startupTotal,
-      'deliveryStart': [day.deliveryStart, Validators.required],
-      'deliveryEnd': [day.deliveryEnd, Validators.required],
-      'deliveryTotal': day.deliveryTotal,
-      'cleanupStart': [day.cleanupStart, Validators.required],
-      'cleanupEnd': [day.cleanupEnd, Validators.required],
-      'cleanupTotal': day.cleanupTotal
-    }),
+        'date': day.date,
+        'startupStart': [day.startupStart, Validators.required],
+        'startupEnd': [day.startupEnd, Validators.required],
+        'startupTotal': day.startupTotal,
+        'deliveryStart': [day.deliveryStart, Validators.required],
+        'deliveryEnd': [day.deliveryEnd, Validators.required],
+        'deliveryTotal': day.deliveryTotal,
+        'cleanupStart': [day.cleanupStart, Validators.required],
+        'cleanupEnd': [day.cleanupEnd, Validators.required],
+        'cleanupTotal': day.cleanupTotal,
+        'total': day.total
+      }),
       startupStart = dayForm.controls['startupStart'],
       startupEnd = dayForm.controls['startupEnd'],
       startupTotal = dayForm.controls['startupTotal'],
@@ -106,32 +108,37 @@ export class ChecklistFormComponent implements OnInit {
       deliveryTotal = dayForm.controls['deliveryTotal'],
       cleanupStart = dayForm.controls['cleanupStart'],
       cleanupEnd = dayForm.controls['cleanupEnd'],
-      cleanupTotal = dayForm.controls['cleanupTotal'];
-
+      cleanupTotal = dayForm.controls['cleanupTotal'],
+      total = dayForm.controls['total'];
     startupStart.valueChanges.subscribe(() => {
       let difference = this.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
       startupTotal.setValue(difference);
-      //this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value);
+      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     startupEnd.valueChanges.subscribe(() => {
       let difference = this.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
       startupTotal.setValue(difference);
+      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     deliveryStart.valueChanges.subscribe(() => {
       let difference = this.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
       deliveryTotal.setValue(difference);
+      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     deliveryEnd.valueChanges.subscribe(() => {
       let difference = this.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
       deliveryTotal.setValue(difference);
+      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     cleanupStart.valueChanges.subscribe(() => {
       let difference = this.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
       cleanupTotal.setValue(difference);
+      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     cleanupEnd.valueChanges.subscribe(() => {
       let difference = this.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
       cleanupTotal.setValue(difference);
+      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
 
     return dayForm;
@@ -140,26 +147,34 @@ export class ChecklistFormComponent implements OnInit {
   private calculateTheDifference(date: string, start: string, end: string) {
     let difference;
     if (this.timeEntered(start) && this.timeEntered(end)) {    // check if time is entered
-      let from = date + ' ' + start,
-        to = date + ' ' + end,
-        format = utils.dateFormat + utils.timeFormat;
-      // TODO check if from is earlier that to
-      difference = moment.utc(moment(to, format).diff(moment(from, format)))
-        .format(utils.timeFormat);
+      let format = utils.dateFormat + ' ' + utils.timeFormat,
+        momentFrom = moment(date + ' ' + start, format),
+        momentTo = moment(date + ' ' + end, format);
+      if (momentFrom.isBefore(momentTo)) {
+        difference = moment.utc(momentTo.diff(momentFrom))
+          .format(utils.timeFormat);
+      }
     }
     return difference;
   }
 
-  // private calculateTotal(timeIntervals: string[]) {
-  //   let totalInterval,
-  //     valid = timeIntervals.every(item => {
-  //     return !!item;
-  //   });
-  //   if (valid) {
-  //
-  //   }
-  //   return totalInterval;
-  // }
+  private calculateTotal(...timeIntervals) {
+    let totalInterval,
+      valid = timeIntervals.some(item => {
+        return !!item;
+      });
+    if (valid) {
+      let start = moment().startOf('day');
+      timeIntervals.forEach((time) => {
+        let momentTime = moment(time, utils.timeFormat);
+        let hours = momentTime.format(utils.hoursFormat),
+          minutes = momentTime.format(utils.minutesFormat);
+        start.add(hours, 'hours').add(minutes, 'minutes');
+      });
+      totalInterval = start.format(utils.timeFormat);
+    }
+    return totalInterval;
+  }
 
   private timeEntered(time) {
     return time && time.length === 5 && time.indexOf('_') === -1;
