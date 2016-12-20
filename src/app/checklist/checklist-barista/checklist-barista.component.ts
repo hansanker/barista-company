@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFire } from 'angularfire2';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Checklist } from '../../shared/checklist';
+import { ChecklistStatuses } from '../../shared/checklistStatuses';
+import { utils } from '../../shared/utils';
 
 @Component({
   selector: 'app-checklist-barista',
@@ -7,9 +13,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChecklistBaristaComponent implements OnInit {
 
-  constructor() { }
+  checklistForm: FormGroup;
+  checklist: Checklist;
+  checklists: Checklist[];
+  userId: string;
 
-  ngOnInit() {
+  constructor(private fb: FormBuilder, private af: AngularFire, private router: Router) {
+    this.af.auth.subscribe(authData => {
+      if (authData) {
+        this.userId = authData.uid;
+        this.af.database.list('checklists', {query: {
+          orderByChild: 'user',
+          equalTo: this.userId
+        }}).subscribe((checklists) => {
+          this.checklists = checklists;
+        });
+      }
+    });
   }
 
+  ngOnInit() {
+    this.checklistForm = this.fb.group({
+      customer: ['', [Validators.required, Validators.minLength(5)]],
+      date: ['', Validators.required]
+    });
+  }
+
+  createChecklist(checklistForm) {
+    let checklist = {
+      customer: checklistForm.customer,
+      status: ChecklistStatuses.CREATED,
+      user: this.userId,
+      days: [{date: checklistForm.date}]
+    };
+    let checklistKey = this.af.database.list('checklists').push(checklist).key; // put data into firebase and get new object key
+    this.router.navigate(['/barista/checklist', checklistKey]);
+  }
+
+  getDateFormat() {
+    return utils.dateFormat.toLowerCase(); // for datepickler format should be lower case
+  }
 }

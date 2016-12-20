@@ -1,0 +1,34 @@
+.wrap {
+  margin-top: 30px;
+}
+
+.content-table input {
+  text-align: center !important;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.total {
+  margin-top: -20px;
+}
+
+.new-date {
+  margin-top: 20px;
+}
+
+.remove {
+  color: #ee6e73;
+  float: right;
+}
+
+.remove .material-icons {
+  font-size: 20px;
+  vertical-align: top;
+}
+
+.total {
+  text-align: left;
+  font-size: 16px;
+}

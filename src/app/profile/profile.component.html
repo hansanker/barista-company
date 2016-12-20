@@ -13,7 +13,7 @@
     </form>
     <form class="profile" #profileForm="ngForm">
       <div class="input-field">
-        <input id="name" name="name" type="text" [(ngModel)]="user.name" required>
+        <input id="name" name="name" type="text" placeholder="Name" [(ngModel)]="user.name" required>
       </div>
       <a class="waves-effect waves-block waves-light btn" [ngClass]="{disabled: !profileForm.valid || updatingProfile}"
          (click)="updateProfile(profileForm.value)">

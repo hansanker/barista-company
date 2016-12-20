@@ -9,16 +9,16 @@ export const AppRoutes = [
     component: BaristaComponent,
     children: [
       {
-        path: 'checklist',
+        path: 'checklists',
         component: ChecklistBaristaComponent,
       },
       {
-        path: 'checklist/checklistForm',
+        path: 'checklist/:id',
         component: ChecklistFormComponent
       },
       {
         path: '',
-        redirectTo: '/checklist',
+        redirectTo: '/checklists',
         pathMatch: 'full'
       }
     ]

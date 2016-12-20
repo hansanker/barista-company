@@ -1,9 +1,35 @@
-<p>
-<a class="waves-effect waves-light btn" routerLink="/checklistForm" routerLinkActive="active">Nieuwe checklist</a>
-</p>
-<div class="collection">
-  <a href="#!" class="collection-item">12-10-2016 - Zuiderzeemuseum</a>
-  <a href="#!" class="collection-item">01-10-2016 - Hilton</a>
-  <a href="#!" class="collection-item">22-09-2016 - NH hotels</a>
-  <a href="#!" class="collection-item">15-09-2016 - Huis van oranje</a>
+<div>
+  <h1>Checklists</h1>
+  <form [formGroup]="checklistForm">
+    <div class="row">
+      <div class="col m4 s6 input-field">
+        <input type="text" id="customer" class="validate" formControlName="customer">
+        <label for="customer">Customer</label>
+      </div>
+      <div class="col m4 s6 input-field">
+        <input type="text" id="date" materialize="pickadate"
+               [materializeParams]="[{format: getDateFormat()}]"
+               formControlName="date" />
+        <label for="date">Date</label>
+      </div>
+      <div class="col m4 s12 input-field">
+        <a class="waves-effect waves-light waves-block btn" [ngClass]="{disabled: checklistForm.invalid}"
+           (click)="createChecklist(checklistForm.value)">
+          Create new checklist
+        </a>
+      </div>
+    </div>
+  </form>
+
+  <table class="bordered highlight" *ngIf="checklists &&  checklists.length">
+    <tbody>
+      <tr *ngFor="let checklist of checklists">
+        <td>{{checklist.customer}}</td>
+        <td class="right">
+          <a class="waves-effect waves-light btn" [routerLink]="['/barista/checklist', checklist.$key]">Edit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+

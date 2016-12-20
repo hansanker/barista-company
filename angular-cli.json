@@ -20,8 +20,7 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/materialize-css/dist/js/materialize.js",
-        "../node_modules/moment/moment.js"
+        "../node_modules/materialize-css/dist/js/materialize.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
