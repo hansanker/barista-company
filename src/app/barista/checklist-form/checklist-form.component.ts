@@ -13,8 +13,8 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-checklist-form',
-  templateUrl: './checklist-form.component.html',
-  styleUrls: ['./checklist-form.component.css']
+  templateUrl: 'checklist-form.component.html',
+  styleUrls: ['checklist-form.component.css']
 })
 export class ChecklistFormComponent implements OnInit {
 
@@ -22,14 +22,6 @@ export class ChecklistFormComponent implements OnInit {
   checklistId: string;
   userId: string;
   checklist: Checklist;
-  // checklist: Checklist = {
-  //   customer: '',
-  //   location: '',
-  //   user: '',
-  //   status: null,
-  //   days: [],
-  //   expenses: []
-  // };
 
   mask = [/\d/, /\d/, ':', /\d/, /\d/];
 

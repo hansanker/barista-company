@@ -14,7 +14,7 @@ export class MessagesComponent implements OnInit {
   @Input() checklistId: string;
   userId: string;
   message: string;
-  messages: Message[];
+  messages: Message[] = [];
 
   constructor(private af: AngularFire) {
     this.af.auth.subscribe(authData => {

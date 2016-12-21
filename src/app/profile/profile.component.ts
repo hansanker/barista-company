@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfileImage(user: any) {
-    return user.image || 'assets/images/user.png';
+    return user.image || 'https://www.vx.nl/assets/images/avatar-placeholder.jpg';
   }
 
   changeImage(event) {

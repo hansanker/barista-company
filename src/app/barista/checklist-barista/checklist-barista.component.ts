@@ -8,8 +8,8 @@ import { utils } from '../../shared/utils';
 
 @Component({
   selector: 'app-checklist-barista',
-  templateUrl: './checklist-barista.component.html',
-  styleUrls: ['./checklist-barista.component.css']
+  templateUrl: 'checklist-barista.component.html',
+  styleUrls: ['checklist-barista.component.css']
 })
 export class ChecklistBaristaComponent implements OnInit {
 
@@ -52,5 +52,9 @@ export class ChecklistBaristaComponent implements OnInit {
 
   getDateFormat() {
     return utils.dateFormat.toLowerCase(); // for datepickler format should be lower case
+  }
+
+  getStatus(status: number) {
+    return ChecklistStatuses[status];
   }
 }

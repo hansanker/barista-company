@@ -13,7 +13,8 @@
     </div>
   </form>
   <div class="message-list" *ngIf="messages">
-    <div class="card" *ngFor="let message of messages" [ngClass]="{'teal lighten-5' :message.user == userId}">
+    <div class="card  lighten-5" *ngFor="let message of messages"
+         [ngClass]="{'teal': message.user == userId, 'red': message.user != userId}">
       <div class="card-content">
         <p class="time">{{message.time/1000 | amFromUnix| amTimeAgo}}</p>
         <p>{{message.text}}</p>

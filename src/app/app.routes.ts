@@ -1,8 +1,11 @@
 import { BaristaComponent} from './barista/barista.component';
 import { AuthComponent } from "./auth/auth.component";
-import { ChecklistBaristaComponent } from "./checklist/checklist-barista/checklist-barista.component";
-import { ChecklistFormComponent } from "./checklist/checklist-form/checklist-form.component";
-import {ProfileComponent} from "./profile/profile.component";
+import { ChecklistBaristaComponent } from "./barista/checklist-barista/checklist-barista.component";
+import { ChecklistFormComponent } from "./barista/checklist-form/checklist-form.component";
+import { ProfileComponent} from "./profile/profile.component";
+import { BackofficeComponent} from "./backoffice/backoffice.component";
+import { ChecklistBackofficeComponent} from "./backoffice/checklist-backoffice/checklist-backoffice.component";
+import { ChecklistViewComponent} from "./backoffice/checklist-view/checklist-view.component";
 
 export const AppRoutes = [
   { path: 'barista',
@@ -15,6 +18,24 @@ export const AppRoutes = [
       {
         path: 'checklist/:id',
         component: ChecklistFormComponent
+      },
+      {
+        path: '',
+        redirectTo: '/checklists',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  { path: 'backoffice',
+    component: BackofficeComponent,
+    children: [
+      {
+        path: 'checklists',
+        component: ChecklistBackofficeComponent,
+      },
+      {
+        path: 'checklist/:id',
+        component: ChecklistViewComponent
       },
       {
         path: '',

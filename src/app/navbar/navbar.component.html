@@ -6,8 +6,8 @@
       <i class="material-icons" >menu</i>
     </a>
     <ul class="right hide-on-med-and-down" *ngIf="isLoggedIn">
-      <li routerLinkActive="active">
-        <a  routerLink="/barista/checklists">Checklists</a>
+      <li routerLinkActive="active" *ngFor="let route of getRoutes()">
+        <a [routerLink]="route.path">{{route.name}}</a>
       </li>
       <li routerLinkActive="active">
         <a  routerLink="/profile">Profile</a>
@@ -17,8 +17,8 @@
       </li>
     </ul>
     <ul class="side-nav" id="slide-out">
-      <li routerLinkActive="active">
-        <a  routerLink="/barista/checklists"><i class="material-icons">view_headline</i>Checklists</a>
+      <li routerLinkActive="active" *ngFor="let route of getRoutes()">
+        <a [routerLink]="route.path"><i class="material-icons">{{route.icon}}</i>{{route.name}}</a>
       </li>
       <li routerLinkActive="active">
         <a  routerLink="/profile"><i class="material-icons">account_box</i>Profile</a>

@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { ChecklistFormHoursComponent } from './checklist-form-hours.component';
+import { ChecklistViewComponent } from './checklist-view.component';
 
-describe('Component: ChecklistFormHours', () => {
+describe('Component: ChecklistView', () => {
   it('should create an instance', () => {
-    let component = new ChecklistFormHoursComponent();
+    let component = new ChecklistViewComponent();
     expect(component).toBeTruthy();
   });
 });

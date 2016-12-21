@@ -14,19 +14,20 @@ import { BaristaComponent } from './barista/barista.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BackofficeComponent } from './backoffice/backoffice.component';
 import { AuthComponent } from './auth/auth.component';
-import { ChecklistFormComponent } from './checklist/checklist-form/checklist-form.component';
-import { ChecklistBaristaComponent } from './checklist/checklist-barista/checklist-barista.component';
-import { ChecklistFormHoursComponent } from './checklist/checklist-form-hours/checklist-form-hours.component';
+import { ChecklistFormComponent } from './barista/checklist-form/checklist-form.component';
+import { ChecklistBaristaComponent } from './barista/checklist-barista/checklist-barista.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MessagesComponent } from './shared/messages/messages.component';
+import { ChecklistBackofficeComponent } from './backoffice/checklist-backoffice/checklist-backoffice.component';
+import { ChecklistViewComponent } from './backoffice/checklist-view/checklist-view.component';
 
   // Initialize Firebase
   export const firebaseConfig = {
-    apiKey: "AIzaSyDTywUOqrAU61m1jEGjExF8ep6EjwI8x5M",
-    authDomain: "barista-5651a.firebaseapp.com",
-    databaseURL: "https://barista-5651a.firebaseio.com",
-    storageBucket: "barista-5651a.appspot.com",
-    messagingSenderId: "1091191482407"
+    apiKey: "AIzaSyCWYY3poe4SpATY-tx2FAIaou-ToD2I1wM",
+    authDomain: "baristacompany-b618b.firebaseapp.com",
+    databaseURL: "https://baristacompany-b618b.firebaseio.com",
+    storageBucket: "baristacompany-b618b.appspot.com",
+    messagingSenderId: "623851489264"
   };
 
 @NgModule({
@@ -38,9 +39,10 @@ import { MessagesComponent } from './shared/messages/messages.component';
     AuthComponent,
     ChecklistFormComponent,
     ChecklistBaristaComponent,
-    ChecklistFormHoursComponent,
     ProfileComponent,
-    MessagesComponent
+    MessagesComponent,
+    ChecklistBackofficeComponent,
+    ChecklistViewComponent
   ],
   imports: [
     BrowserModule,

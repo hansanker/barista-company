@@ -1,0 +1,15 @@
+.wrap {
+  padding-top: 20px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.total {
+  text-align: left;
+}
+
+.buttons {
+  margin-top: 40px;
+}
