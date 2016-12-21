@@ -3,7 +3,7 @@ import { ChecklistBackofficeComponent} from "./checklist-backoffice/checklist-ba
 import { ChecklistViewComponent} from "./checklist-view/checklist-view.component";
 
 export const BackofficeRoutes = [
-  { path: 'backoffice',
+  { path: '',
     component: BackofficeComponent,
     children: [
       {
