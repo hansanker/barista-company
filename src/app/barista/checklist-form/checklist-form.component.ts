@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
 import { AngularFire } from 'angularfire2';
 import { Checklist } from '../../shared/checklist';
 import { ChecklistDay } from '../../shared/checklistDay';
 import { ChecklistStatuses } from "../../shared/checklistStatuses";
 import { ChecklistExpense } from '../../shared/checklistExpense';
-import { utils } from '../../shared/utils';
-import { toast } from "angular2-materialize";
-
-import * as moment from 'moment';
+import { UtilService } from '../../core/util.service';
 
 @Component({
   selector: 'app-checklist-form',
@@ -25,7 +22,10 @@ export class ChecklistFormComponent implements OnInit {
 
   mask = [/\d/, /\d/, ':', /\d/, /\d/];
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private af: AngularFire) {
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private af: AngularFire,
+              private utilService: UtilService) {
     this.af.auth.subscribe(authData => {
       if (authData) {
         this.userId = authData.uid;
@@ -68,21 +68,21 @@ export class ChecklistFormComponent implements OnInit {
   }
 
   getDateFormat() {
-    return utils.dateFormat.toLowerCase();  // for datepickler format should be lower case
+    return this.utilService.getDatepickerFormat();
   }
 
   save(checklist: Checklist) {
     this.updateChecklist(checklist).then(
-      () => { this.triggerToast('Your checklist was saved') },
-      (err) => {this.triggerToast(err.message || 'An error occured')}
+      () => { this.utilService.triggerToast('Your checklist was saved') },
+      (err) => {this.utilService.triggerToast(err.message || 'An error occured')}
     )
   }
 
   submit(checklist: Checklist) {
     checklist.status = ChecklistStatuses.SUBMITTED;
     this.updateChecklist(checklist).then(
-      () => { this.triggerToast('Your checklist was submitted') },
-      (err) => {this.triggerToast(err.message || 'An error occured')}
+      () => { this.utilService.triggerToast('Your checklist was submitted') },
+      (err) => {this.utilService.triggerToast(err.message || 'An error occured')}
     )
   }
 
@@ -121,34 +121,34 @@ export class ChecklistFormComponent implements OnInit {
       cleanupTotal = dayForm.controls['cleanupTotal'],
       total = dayForm.controls['total'];
     startupStart.valueChanges.subscribe(() => {
-      let difference = this.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
+      let difference = this.utilService.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
       startupTotal.setValue(difference);
-      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
+      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     startupEnd.valueChanges.subscribe(() => {
-      let difference = this.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
+      let difference = this.utilService.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
       startupTotal.setValue(difference);
-      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
+      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     deliveryStart.valueChanges.subscribe(() => {
-      let difference = this.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
+      let difference = this.utilService.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
       deliveryTotal.setValue(difference);
-      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
+      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     deliveryEnd.valueChanges.subscribe(() => {
-      let difference = this.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
+      let difference = this.utilService.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
       deliveryTotal.setValue(difference);
-      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
+      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     cleanupStart.valueChanges.subscribe(() => {
-      let difference = this.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
+      let difference = this.utilService.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
       cleanupTotal.setValue(difference);
-      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
+      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
     cleanupEnd.valueChanges.subscribe(() => {
-      let difference = this.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
+      let difference = this.utilService.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
       cleanupTotal.setValue(difference);
-      total.setValue(this.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
+      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
     });
 
     return dayForm;
@@ -161,46 +161,6 @@ export class ChecklistFormComponent implements OnInit {
       'type': [expense.type, Validators.required],
       'remark': expense.remark
     })
-  }
-
-  private calculateTheDifference(date: string, start: string, end: string) {
-    let difference;
-    if (this.timeEntered(start) && this.timeEntered(end)) {    // check if time is entered
-      let format = utils.dateFormat + ' ' + utils.timeFormat,
-        momentFrom = moment(date + ' ' + start, format),
-        momentTo = moment(date + ' ' + end, format);
-      if (momentFrom.isBefore(momentTo)) {
-        difference = moment.utc(momentTo.diff(momentFrom))
-          .format(utils.timeFormat);
-      }
-    }
-    return difference;
-  }
-
-  private calculateTotal(...timeIntervals) {
-    let totalInterval,
-      valid = timeIntervals.some(item => {
-        return !!item;
-      });
-    if (valid) {
-      let start = moment().startOf('day');
-      timeIntervals.forEach((time) => {
-        let momentTime = moment(time, utils.timeFormat);
-        let hours = momentTime.format(utils.hoursFormat),
-          minutes = momentTime.format(utils.minutesFormat);
-        start.add(hours, 'hours').add(minutes, 'minutes');
-      });
-      totalInterval = start.format(utils.timeFormat);
-    }
-    return totalInterval;
-  }
-
-  private timeEntered(time) {
-    return time && time.length === 5 && time.indexOf('_') === -1;
-  }
-
-  private triggerToast(message: string) {
-    toast(message, 3000);
   }
 
   private updateChecklist(checklist: Checklist) {

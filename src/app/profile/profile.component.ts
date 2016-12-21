@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import {toast } from "angular2-materialize";
 import { AngularFire } from 'angularfire2';
+import { UtilService } from '../core/util.service';
 import * as firebase from 'firebase';
 
 @Component({
@@ -15,7 +16,7 @@ export class ProfileComponent implements OnInit {
   updatingImage = false;
   updatingProfile = false;
 
-  constructor(private af: AngularFire) {
+  constructor(private af: AngularFire, private utilService: UtilService) {
     this.af.auth.subscribe(authData => {
       if (authData) {
         this.userRef = this.af.database.object(`users/${authData.uid}`);
@@ -43,10 +44,10 @@ export class ProfileComponent implements OnInit {
       fr.onload = () => {
         this.updateProfileImage(fr.result).then(() => {
           this.updatingImage = false;
-          this.triggerToast('Your image was updated');
+          this.utilService.triggerToast('Your image was updated');
         }, (err) => {
           this.updatingImage = false;
-          this.triggerToast(err.message || 'An error occurred');
+          this.utilService.triggerToast(err.message || 'An error occurred');
         })
       };
       fr.readAsArrayBuffer(files[0]);
@@ -60,11 +61,11 @@ export class ProfileComponent implements OnInit {
     }).then(
       () => {
         this.updatingProfile = false;
-        this.triggerToast('Your profile was updated');
+        this.utilService.triggerToast('Your profile was updated');
       },
       (err) => {
         this.updatingProfile = false;
-        this.triggerToast(err.message || 'An error occurred');
+        this.utilService.triggerToast(err.message || 'An error occurred');
       }
     );
   }
@@ -94,10 +95,6 @@ export class ProfileComponent implements OnInit {
           resolve(uploadTask.snapshot.downloadURL);
         });
     });
-  }
-
-  private triggerToast(message: string) {
-    toast(message, 3000);
   }
 
 }

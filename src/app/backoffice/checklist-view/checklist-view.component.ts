@@ -3,9 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { Checklist } from '../../shared/checklist';
 import { ChecklistStatuses } from '../../shared/checklistStatuses';
-import { toast } from "angular2-materialize";
+import { UtilService } from '../../core/util.service';
 
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-checklist-view',
@@ -17,7 +16,9 @@ export class ChecklistViewComponent implements OnInit {
   checklistId: string;
   checklist: Checklist;
 
-  constructor(private route: ActivatedRoute, private af: AngularFire) {
+  constructor(private route: ActivatedRoute,
+              private af: AngularFire,
+              private utilService: UtilService) {
   }
 
   ngOnInit() {
@@ -33,9 +34,9 @@ export class ChecklistViewComponent implements OnInit {
     this.af.database.object(`checklists/${this.checklistId}`).update({
       status: ChecklistStatuses.APPROVED
     }).then(() => {
-      this.triggerToast('Checklist was approved');
+      this.utilService.triggerToast('Checklist was approved');
     }, (err) => {
-      this.triggerToast(err.message || 'An error occurred');
+      this.utilService.triggerToast(err.message || 'An error occurred');
     })
   }
 
@@ -43,14 +44,10 @@ export class ChecklistViewComponent implements OnInit {
     this.af.database.object(`checklists/${this.checklistId}`).update({
       status: ChecklistStatuses.REJECTED
     }).then(() => {
-      this.triggerToast('Checklist was rejected');
+      this.utilService.triggerToast('Checklist was rejected');
     }, (err) => {
-      this.triggerToast(err.message || 'An error occurred');
+      this.utilService.triggerToast(err.message || 'An error occurred');
     })
-  }
-
-  private triggerToast(message: string) {
-    toast(message, 3000);
   }
 
   private updateChecklist(checklist: Checklist) {

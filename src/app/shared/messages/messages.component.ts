@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 import { Message } from '../../shared/message';
 import { toast } from "angular2-materialize";
+import { UtilService } from '../../core/util.service';
 import * as firebase from 'firebase';
 
 @Component({
@@ -16,7 +17,7 @@ export class MessagesComponent implements OnInit {
   message: string;
   messages: Message[] = [];
 
-  constructor(private af: AngularFire) {
+  constructor(private af: AngularFire, private utilService: UtilService) {
     this.af.auth.subscribe(authData => {
       if (authData) {
         this.userId = authData.uid;
@@ -38,15 +39,11 @@ export class MessagesComponent implements OnInit {
       time: firebase.database.ServerValue.TIMESTAMP,
       user: this.userId
     }).then(() => {
-      this.triggerToast('New message was added');
+      this.utilService.triggerToast('New message was added');
       this.message = '';
     }, (err) => {
-      this.triggerToast(err.message || 'An error occurred');
+      this.utilService.triggerToast(err.message || 'An error occurred');
     })
-  }
-
-  private triggerToast(message: string) {
-    toast(message, 3000);
   }
 
 }

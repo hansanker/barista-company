@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Checklist } from '../../shared/checklist';
 import { ChecklistStatuses } from '../../shared/checklistStatuses';
-import { utils } from '../../shared/utils';
+import { UtilService } from '../../core/util.service';
 
 @Component({
   selector: 'app-checklist-barista',
@@ -18,7 +18,10 @@ export class ChecklistBaristaComponent implements OnInit {
   checklists: Checklist[];
   userId: string;
 
-  constructor(private fb: FormBuilder, private af: AngularFire, private router: Router) {
+  constructor(private fb: FormBuilder,
+              private af: AngularFire,
+              private router: Router,
+              private utilService: UtilService) {
     this.af.auth.subscribe(authData => {
       if (authData) {
         this.userId = authData.uid;
@@ -51,7 +54,7 @@ export class ChecklistBaristaComponent implements OnInit {
   }
 
   getDateFormat() {
-    return utils.dateFormat.toLowerCase(); // for datepickler format should be lower case
+    return this.utilService.getDatepickerFormat();
   }
 
   getStatus(status: number) {
