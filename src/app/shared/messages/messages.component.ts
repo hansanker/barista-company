@@ -26,15 +26,20 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    firebase.database().ref(`checklists/${this.checklistId}/messages`)
+    firebase.database().ref(`messages`).orderByChild('checklist').equalTo(this.checklistId)
       .on('child_added', (snapshot) => {
-        this.messages.unshift(snapshot.val());
+        let message = snapshot.val();
+        firebase.database().ref(`users/${message.user}`).on('value', (snapshot) => {
+          message.name = snapshot.val().name;
+          this.messages.unshift(message);
+        });
       });
   }
 
   sendMessage(messageForm: any) {
     let message = messageForm.message;
-    this.af.database.list(`checklists/${this.checklistId}/messages`).push({
+    this.af.database.list(`messages`).push({
+      checklist: this.checklistId,
       text: message,
       time: firebase.database.ServerValue.TIMESTAMP,
       user: this.userId
