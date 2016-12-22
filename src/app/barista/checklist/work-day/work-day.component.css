@@ -1,0 +1,25 @@
+.title {
+  font-weight: bold;
+}
+
+input {
+  text-align: center;
+}
+
+.total {
+  text-align: left;
+  line-height: 36px;
+}
+
+.total-text {
+  line-height: 42px;
+}
+
+.days .remove {
+  float: right;
+}
+
+.remove .material-icons {
+  font-size: 20px;
+  vertical-align: top;
+}

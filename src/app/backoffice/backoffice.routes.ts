@@ -1,5 +1,5 @@
 import { BackofficeComponent} from "./backoffice.component";
-import { ChecklistBackofficeComponent} from "./checklist-backoffice/checklist-backoffice.component";
+import { ChecklistsBackofficeComponent} from "./checklists-backoffice/checklists-backoffice.component";
 import { ChecklistViewComponent} from "./checklist-view/checklist-view.component";
 
 export const BackofficeRoutes = [
@@ -8,7 +8,7 @@ export const BackofficeRoutes = [
     children: [
       {
         path: 'checklists',
-        component: ChecklistBackofficeComponent,
+        component: ChecklistsBackofficeComponent,
       },
       {
         path: 'checklist/:id',

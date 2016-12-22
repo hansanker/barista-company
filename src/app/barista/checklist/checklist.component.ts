@@ -9,18 +9,16 @@ import { ChecklistExpense } from '../../shared/checklistExpense';
 import { UtilService } from '../../core/util.service';
 
 @Component({
-  selector: 'app-checklist-form',
-  templateUrl: 'checklist-form.component.html',
-  styleUrls: ['checklist-form.component.css']
+  selector: 'app-checklist',
+  templateUrl: 'checklist.component.html',
+  styleUrls: ['checklist.component.css']
 })
-export class ChecklistFormComponent implements OnInit {
+export class ChecklistComponent implements OnInit {
 
   checklistForm: FormGroup;
   checklistId: string;
   userId: string;
   checklist: Checklist;
-
-  mask = [/\d/, /\d/, ':', /\d/, /\d/];
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,

@@ -4,11 +4,11 @@ import { Checklist } from '../../shared/checklist';
 import { ChecklistStatuses } from '../../shared/checklistStatuses';
 
 @Component({
-  selector: 'app-checklist-backoffice',
-  templateUrl: 'checklist-backoffice.component.html',
-  styleUrls: ['checklist-backoffice.component.css']
+  selector: 'app-checklists-backoffice',
+  templateUrl: 'checklists-backoffice.component.html',
+  styleUrls: ['checklists-backoffice.component.css']
 })
-export class ChecklistBackofficeComponent implements OnInit {
+export class ChecklistsBackofficeComponent implements OnInit {
 
   checklists: Checklist[];
 

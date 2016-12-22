@@ -9,16 +9,20 @@ import { BaristaRoutes } from './barista.routes';
 import { SharedModule } from '../shared/shared.module';
 
 import { BaristaComponent } from './barista.component';
-import { ChecklistBaristaComponent } from './checklist-barista/checklist-barista.component';
-import { ChecklistFormComponent } from './checklist-form/checklist-form.component';
-import { NewDateComponent } from './checklist-form/new-date/new-date.component';
+import { ChecklistsBaristaComponent } from './checklists-barista/checklists-barista.component';
+import { ChecklistComponent } from './checklist/checklist.component';
+import { NewDateComponent } from './checklist/new-date/new-date.component';
+import { ExpenseComponent } from './checklist/expense/expense.component';
+import { WorkDayComponent } from './checklist/work-day/work-day.component';
 
 @NgModule({
   declarations: [
     BaristaComponent,
-    ChecklistBaristaComponent,
-    ChecklistFormComponent,
-    NewDateComponent
+    ChecklistsBaristaComponent,
+    ChecklistComponent,
+    NewDateComponent,
+    ExpenseComponent,
+    WorkDayComponent
   ],
   exports: [BaristaComponent],
   imports: [

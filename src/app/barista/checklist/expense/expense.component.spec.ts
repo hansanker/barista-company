@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { ChecklistFormComponent } from './checklist-form.component';
+import { ExpenseComponent } from './expense.component';
 
-describe('Component: ChecklistForm', () => {
+describe('Component: Expense', () => {
   it('should create an instance', () => {
-    let component = new ChecklistFormComponent();
+    let component = new ExpenseComponent();
     expect(component).toBeTruthy();
   });
 });

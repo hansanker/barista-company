@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { ChecklistBaristaComponent } from './checklist-barista.component';
+import { WorkDayComponent } from './work-day.component';
 
-describe('Component: ChecklistBarista', () => {
+describe('Component: WorkDay', () => {
   it('should create an instance', () => {
-    let component = new ChecklistBaristaComponent();
+    let component = new WorkDayComponent();
     expect(component).toBeTruthy();
   });
 });

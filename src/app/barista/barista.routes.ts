@@ -1,6 +1,6 @@
 import { BaristaComponent} from './barista.component';
-import { ChecklistBaristaComponent } from "./checklist-barista/checklist-barista.component";
-import { ChecklistFormComponent } from "./checklist-form/checklist-form.component";
+import { ChecklistsBaristaComponent } from "./checklists-barista/checklists-barista.component";
+import { ChecklistComponent } from "./checklist/checklist.component";
 
 export const BaristaRoutes = [
   { path: '',
@@ -8,11 +8,11 @@ export const BaristaRoutes = [
     children: [
       {
         path: 'checklists',
-        component: ChecklistBaristaComponent,
+        component: ChecklistsBaristaComponent,
       },
       {
         path: 'checklist/:id',
-        component: ChecklistFormComponent
+        component: ChecklistComponent
       },
       {
         path: '',

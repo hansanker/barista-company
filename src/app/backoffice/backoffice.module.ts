@@ -6,13 +6,13 @@ import { SharedModule } from '../shared/shared.module';
 import { BackofficeRoutes } from './backoffice.routes';
 
 import { BackofficeComponent } from './backoffice.component';
-import { ChecklistBackofficeComponent } from './checklist-backoffice/checklist-backoffice.component';
+import { ChecklistsBackofficeComponent } from './checklists-backoffice/checklists-backoffice.component';
 import { ChecklistViewComponent } from './checklist-view/checklist-view.component';
 
 @NgModule({
   declarations: [
     BackofficeComponent,
-    ChecklistBackofficeComponent,
+    ChecklistsBackofficeComponent,
     ChecklistViewComponent
   ],
   exports: [BackofficeComponent],

@@ -7,11 +7,11 @@ import { ChecklistStatuses } from '../../shared/checklistStatuses';
 import { UtilService } from '../../core/util.service';
 
 @Component({
-  selector: 'app-checklist-barista',
-  templateUrl: 'checklist-barista.component.html',
-  styleUrls: ['checklist-barista.component.css']
+  selector: 'app-checklists-barista',
+  templateUrl: 'checklists-barista.component.html',
+  styleUrls: ['checklists-barista.component.css']
 })
-export class ChecklistBaristaComponent implements OnInit {
+export class ChecklistsBaristaComponent implements OnInit {
 
   checklistForm: FormGroup;
   checklist: Checklist;

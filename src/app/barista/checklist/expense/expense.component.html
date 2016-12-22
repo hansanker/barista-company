@@ -1,0 +1,19 @@
+<div [formGroup]="expenseForm">
+  <div class="col s12">
+    <h5 class="center">{{expenseForm.controls.date.value}}</h5>
+  </div>
+  <div class="col m2 s6 input-field">
+    <input type="text" id="type" name="type" placeholder="Type" formControlName="type">
+  </div>
+  <div class="col m2 s6 input-field">
+    <input type="number" id="amount" name="type" placeholder="Amount" formControlName="amount">
+  </div>
+  <div class="col m5 s12 input-field">
+    <input type="text" id="remark" name="type" placeholder="Remark" formControlName="remark">
+  </div>
+  <div class="col m3 s12">
+    <a class="waves-effect waves-light waves-block btn red remove" (click)="removeExpense()">
+      Delete<i class="material-icons">delete</i>
+    </a>
+  </div>
+</div>
