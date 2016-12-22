@@ -5,7 +5,6 @@ import { Checklist } from '../../shared/checklist';
 import { ChecklistStatuses } from '../../shared/checklistStatuses';
 import { UtilService } from '../../core/util.service';
 
-
 @Component({
   selector: 'app-checklist-view',
   templateUrl: 'checklist-view.component.html',
@@ -25,7 +24,7 @@ export class ChecklistViewComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.checklistId = params['id'];
       this.af.database.object(`checklists/${this.checklistId}`).subscribe((checklist) => {
-        this.checklist = checklist;
+        this.checklist = new Checklist(checklist);
       });
     });
   }

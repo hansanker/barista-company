@@ -14,6 +14,7 @@ import { ChecklistComponent } from './checklist/checklist.component';
 import { NewDateComponent } from './checklist/new-date/new-date.component';
 import { ExpenseComponent } from './checklist/expense/expense.component';
 import { WorkDayComponent } from './checklist/work-day/work-day.component';
+import { WorkHoursComponent } from './checklist/work-day/work-hours/work-hours.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WorkDayComponent } from './checklist/work-day/work-day.component';
     ChecklistComponent,
     NewDateComponent,
     ExpenseComponent,
-    WorkDayComponent
+    WorkDayComponent,
+    WorkHoursComponent
   ],
   exports: [BaristaComponent],
   imports: [

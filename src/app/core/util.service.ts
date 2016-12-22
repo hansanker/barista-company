@@ -22,7 +22,7 @@ export class UtilService {
     return difference;
   }
 
-  calculateTotal(...timeIntervals) {
+  calculateTotal(timeIntervals: string[]) {
     let totalInterval,
       valid = timeIntervals.some(item => {
         return !!item;

@@ -38,13 +38,13 @@
                   </div>
                   <div class="row">
                     <div class="col s4">
-                      {{day.startupStart}}
+                      {{day.startup.start}}
                     </div>
                     <div class="col s4">
-                      {{day.startupEnd}}
+                      {{day.startup.end}}
                     </div>
                     <div class="col s4">
-                      {{day.startupTotal}}
+                      {{day.startup.total}}
                     </div>
                   </div>
                 </div>
@@ -65,13 +65,13 @@
                   </div>
                   <div class="row">
                     <div class="col s4">
-                      {{day.deliveryStart}}
+                      {{day.delivery.start}}
                     </div>
                     <div class="col s4">
-                      {{day.deliveryEnd}}
+                      {{day.delivery.end}}
                     </div>
                     <div class="col s4">
-                      {{day.deliveryTotal}}
+                      {{day.delivery.total}}
                     </div>
                   </div>
                 </div>
@@ -92,13 +92,13 @@
                   </div>
                   <div class="row">
                     <div class="col s4">
-                      {{day.cleanupStart}}
+                      {{day.cleanup.start}}
                     </div>
                     <div class="col s4">
-                      {{day.cleanupEnd}}
+                      {{day.cleanup.end}}
                     </div>
                     <div class="col s4">
-                      {{day.cleanupTotal}}
+                      {{day.cleanup.total}}
                     </div>
                   </div>
                 </div>
@@ -111,6 +111,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="total-hours">
+        <h5 class="left">Total hours: {{checklist.totalHours}}</h5>
       </div>
     </div>
 
@@ -135,6 +138,9 @@
           </tr>
           </tbody>
         </table>
+        <div class="total-expenses">
+          <h5 class="left">Total expenses: {{checklist.totalExpenses}}</h5>
+        </div>
       </div>
     </div>
 

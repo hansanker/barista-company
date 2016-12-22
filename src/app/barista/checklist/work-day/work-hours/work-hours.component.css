@@ -1,0 +1,11 @@
+.title {
+  font-weight: bold;
+}
+
+input {
+  text-align: center;
+}
+
+.total-text {
+  line-height: 42px;
+}

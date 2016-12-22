@@ -13,3 +13,11 @@
 .buttons {
   margin-top: 40px;
 }
+
+.total-hours, .total-expenses {
+  overflow: hidden;
+}
+
+.total-expenses {
+  margin-top: 40px;
+}

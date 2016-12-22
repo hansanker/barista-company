@@ -35,11 +35,7 @@ export class ChecklistComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.checklistId = params['id'];
       this.af.database.object(`checklists/${this.checklistId}`).subscribe((checklist) => {
-        this.checklist = checklist;
-        // TODO refactor it later
-        if (!this.checklist.expenses) {
-          this.checklist.expenses = [];
-        }
+        this.checklist = new Checklist(checklist);
         this.buildForm();
       });
     });
@@ -47,12 +43,12 @@ export class ChecklistComponent implements OnInit {
 
   onDayAdded(date: string) {
     const control = <FormArray>this.checklistForm.controls['days'];
-    control.push(this.initDay({date: date}));
+    control.push(this.initDay(new ChecklistDay({date: date})));
   }
 
   onExpenseAdded(date: string) {
     const control = <FormArray>this.checklistForm.controls['expenses'];
-    control.push(this.initExpense({date: date}));
+    control.push(this.initExpense(new ChecklistExpense({date: date})));
   }
 
   removeDate(i: number) {
@@ -85,65 +81,56 @@ export class ChecklistComponent implements OnInit {
       customer: [this.checklist.customer, Validators.required],
       location: [this.checklist.location],
       days: this.fb.array(this.checklist.days.map(day => this.initDay(day))),
-      expenses: this.fb.array((this.checklist.expenses).map(expense => this.initExpense(expense)))
+      expenses: this.fb.array((this.checklist.expenses).map(expense => this.initExpense(expense))),
+      totalHours: [this.checklist.totalHours],
+      totalExpenses: [this.checklist.totalExpenses]
+    });
+
+    this.checklistForm.controls['days'].valueChanges.subscribe(() => {
+      let days = <FormArray>this.checklistForm.controls['days'],
+        daysLength = days.length,
+        totalValues = [];
+      for (let i = 0; i < daysLength; i++) {
+        let total = (<FormGroup>days.controls[i]).controls['total'].value;
+        totalValues.push(total);
+      }
+      let totalValue = this.utilService.calculateTotal(totalValues);
+      this.checklistForm.controls['totalHours'].setValue(totalValue);
+    });
+
+    this.checklistForm.controls['expenses'].valueChanges.subscribe(() => {
+      let expenses = <FormArray>this.checklistForm.controls['expenses'],
+        expensesLength = expenses.length,
+        totalValues = [];
+      for (let i = 0; i < expensesLength; i++) {
+        let total = (<FormGroup>expenses.controls[i]).controls['amount'].value;
+        totalValues.push(total);
+      }
+      let totalValue = totalValues.reduce((a,b) => {return a + b}, 0);
+      this.checklistForm.controls['totalExpenses'].setValue(totalValue);
     });
   }
 
   private initDay(day: ChecklistDay) {
-    //TODO refactor this shit
     let dayForm = this.fb.group({
         'date': day.date,
-        'startupStart': [day.startupStart, Validators.required],
-        'startupEnd': [day.startupEnd, Validators.required],
-        'startupTotal': [day.startupTotal, Validators.required],
-        'deliveryStart': [day.deliveryStart, Validators.required],
-        'deliveryEnd': [day.deliveryEnd, Validators.required],
-        'deliveryTotal': [day.deliveryTotal, Validators.required],
-        'cleanupStart': [day.cleanupStart, Validators.required],
-        'cleanupEnd': [day.cleanupEnd, Validators.required],
-        'cleanupTotal': [day.cleanupTotal, Validators.required],
+        'startup': this.fb.group({
+          'start': [day.startup.start, Validators.required],
+          'end': [day.startup.end, Validators.required],
+          'total': [day.startup.total, Validators.required]
+        }),
+        'delivery': this.fb.group({
+          'start': [day.delivery.start, Validators.required],
+          'end': [day.delivery.end, Validators.required],
+          'total': [day.delivery.total, Validators.required]
+        }),
+        'cleanup': this.fb.group({
+          'start': [day.cleanup.start, Validators.required],
+          'end': [day.cleanup.end, Validators.required],
+          'total': [day.cleanup.total, Validators.required]
+        }),
         'total': day.total
-      }),
-      startupStart = dayForm.controls['startupStart'],
-      startupEnd = dayForm.controls['startupEnd'],
-      startupTotal = dayForm.controls['startupTotal'],
-      deliveryStart = dayForm.controls['deliveryStart'],
-      deliveryEnd = dayForm.controls['deliveryEnd'],
-      deliveryTotal = dayForm.controls['deliveryTotal'],
-      cleanupStart = dayForm.controls['cleanupStart'],
-      cleanupEnd = dayForm.controls['cleanupEnd'],
-      cleanupTotal = dayForm.controls['cleanupTotal'],
-      total = dayForm.controls['total'];
-    startupStart.valueChanges.subscribe(() => {
-      let difference = this.utilService.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
-      startupTotal.setValue(difference);
-      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
-    });
-    startupEnd.valueChanges.subscribe(() => {
-      let difference = this.utilService.calculateTheDifference(day.date, startupStart.value, startupEnd.value);
-      startupTotal.setValue(difference);
-      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
-    });
-    deliveryStart.valueChanges.subscribe(() => {
-      let difference = this.utilService.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
-      deliveryTotal.setValue(difference);
-      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
-    });
-    deliveryEnd.valueChanges.subscribe(() => {
-      let difference = this.utilService.calculateTheDifference(day.date, deliveryStart.value, deliveryEnd.value);
-      deliveryTotal.setValue(difference);
-      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
-    });
-    cleanupStart.valueChanges.subscribe(() => {
-      let difference = this.utilService.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
-      cleanupTotal.setValue(difference);
-      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
-    });
-    cleanupEnd.valueChanges.subscribe(() => {
-      let difference = this.utilService.calculateTheDifference(day.date, cleanupStart.value, cleanupEnd.value);
-      cleanupTotal.setValue(difference);
-      total.setValue(this.utilService.calculateTotal(startupTotal.value, deliveryTotal.value, cleanupTotal.value));
-    });
+      });
 
     return dayForm;
   }

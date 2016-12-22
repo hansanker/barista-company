@@ -1,5 +1,6 @@
 <div class="row wrap">
-  <form class="col s12" [formGroup]="checklistForm" *ngIf="checklist" novalidate (ngSubmit)="submit(checklistForm.value)">
+  <form class="col s12" [formGroup]="checklistForm" *ngIf="checklist" novalidate
+        (ngSubmit)="submit(checklistForm.value)">
     <div class="row">
       <div class="col s12 input-field">
         <input type="text" id="customer" class="validate" formControlName="customer">
@@ -19,6 +20,9 @@
         <app-work-day [workDay]="checklistForm.controls.days.controls[i]" (remove)="removeDate(i)"
                       [deleteAvailable]="i > 0"></app-work-day>
       </div>
+      <div class="total-hours">
+        <h5 class="left">Total hours: {{checklistForm.controls.totalHours.value}}</h5>
+      </div>
     </div>
 
     <app-new-date caption="Add new day" (dateAdded)="onDayAdded($event)"></app-new-date>
@@ -32,6 +36,10 @@
                        (remove)="removeExpense(i)"></app-expense>
         </div>
 
+        <div class="total-expenses">
+          <h5 class="left">Total expenses: {{checklistForm.controls.totalExpenses.value}}</h5>
+        </div>
+
         <app-new-date caption="Add new expense" (dateAdded)="onExpenseAdded($event)"></app-new-date>
       </div>
     </div>
@@ -43,7 +51,8 @@
         </a>
       </div>
       <div class="col s12 m6">
-        <a class="waves-effect waves-light waves-block btn orange darken-2" [ngClass]="{disabled: checklistForm.invalid}"
+        <a class="waves-effect waves-light waves-block btn orange darken-2"
+           [ngClass]="{disabled: checklistForm.invalid}"
            (click)="submit(checklistForm.value)">Submit checklist</a>
       </div>
     </div>

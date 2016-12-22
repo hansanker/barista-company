@@ -3,6 +3,7 @@ import { AngularFire } from 'angularfire2';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Checklist } from '../../shared/checklist';
+import { ChecklistDay } from '../../shared/checklistDay';
 import { ChecklistStatuses } from '../../shared/checklistStatuses';
 import { UtilService } from '../../core/util.service';
 
@@ -43,12 +44,8 @@ export class ChecklistsBaristaComponent implements OnInit {
   }
 
   createChecklist(checklistForm) {
-    let checklist = {
-      customer: checklistForm.customer,
-      status: ChecklistStatuses.CREATED,
-      user: this.userId,
-      days: [{date: checklistForm.date}]
-    };
+    let day = new ChecklistDay({date: checklistForm.date});
+    let checklist = new Checklist({customer: checklistForm.customer, user: this.userId,  days: [day]});
     let checklistKey = this.af.database.list('checklists').push(checklist).key; // put data into firebase and get new object key
     this.router.navigate(['/barista/checklist', checklistKey]);
   }

@@ -1,21 +1,11 @@
-.title {
-  font-weight: bold;
-}
-
-input {
-  text-align: center;
-}
-
 .total {
+  font-weight: bold;
   text-align: left;
   line-height: 36px;
+  margin-top: -20px;
 }
 
-.total-text {
-  line-height: 42px;
-}
-
-.days .remove {
+.remove {
   float: right;
 }
 

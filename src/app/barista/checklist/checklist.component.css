@@ -6,3 +6,6 @@
   margin-top: 40px;
 }
 
+.total-hours, .total-expenses {
+  overflow: hidden;
+}
