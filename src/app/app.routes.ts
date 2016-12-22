@@ -1,11 +1,11 @@
-// import { LoginComponent } from './auth/login';
-// import { RegistrationComponent } from './auth/registration';
-import { BaristaRoutes } from './barista/barista.routes';
-import { BaristaComponent} from './barista/barista.component';
-
+import { AuthComponent } from "./auth/auth.component";
+import { ProfileComponent} from "./profile/profile.component";
 
 export const AppRoutes = [
- ...BaristaRoutes,
-   { path: '', component: BaristaComponent },
-//   { path: 'register', component: RegistrationComponent }
+  { path: 'login', component: AuthComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'barista', loadChildren: './barista/barista.module#BaristaModule'},
+  { path: 'backoffice', loadChildren: './backoffice/backoffice.module#BackofficeModule'},
+  { path: '', pathMatch: 'full', redirectTo: 'profile'},
+  { path: '**', pathMatch: 'full', redirectTo: 'profile'}
 ];

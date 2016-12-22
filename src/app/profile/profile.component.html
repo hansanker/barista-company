@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col m6 s10 offset-m3 offset-s1 center" *ngIf="user">
+    <h1>Profile</h1>
+    <div class="img-wrapper" [ngStyle]="{'background-image': 'url(' + getProfileImage(user) + ')'}"></div>
+    <form class="change-image">
+      <div class="file-field input-field">
+        <div class="waves-effect waves-block waves-light btn orange darken-2" [ngClass]="{disabled: updatingImage}">
+          <i class="material-icons spin" *ngIf="updatingImage">autorenew</i>
+          <span *ngIf="!updatingImage">Change image</span>
+          <input type="file" accept="image/*" (change)="changeImage($event)">
+        </div>
+      </div>
+    </form>
+    <form class="profile" #profileForm="ngForm">
+      <div class="input-field">
+        <input id="name" name="name" type="text" placeholder="Name" [(ngModel)]="user.name" required>
+      </div>
+      <a class="waves-effect waves-block waves-light btn orange darken-2" [ngClass]="{disabled: !profileForm.valid || updatingProfile}"
+         (click)="updateProfile(profileForm.value)">
+        <i class="material-icons spin" *ngIf="updatingProfile">autorenew</i>
+        <span *ngIf="!updatingProfile">Update</span>
+      </a>
+    </form>
+  </div>
+</div>

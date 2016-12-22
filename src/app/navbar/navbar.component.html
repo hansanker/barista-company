@@ -1,0 +1,33 @@
+<nav class="teal">
+  <div class="nav-wrapper container">
+    <a href="#" class="brand-logo">
+      <img src="assets/images/logo.png" class="logo" alt="Barista Company">
+    </a>
+    <a materialize="sideNav" [materializeParams]="[{edge:'left', closeOnClick: true}]" href="#" data-activates="slide-out"
+       class="button-collapse" *ngIf="isLoggedIn">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="right hide-on-med-and-down" *ngIf="isLoggedIn">
+      <li routerLinkActive="active" *ngFor="let route of getRoutes()">
+        <a [routerLink]="route.path">{{route.name}}</a>
+      </li>
+      <li routerLinkActive="active">
+        <a  routerLink="/profile">Profile</a>
+      </li>
+      <li>
+        <a (click)="logout()">Logout</a>
+      </li>
+    </ul>
+    <ul class="side-nav" id="slide-out">
+      <li routerLinkActive="active" *ngFor="let route of getRoutes()">
+        <a [routerLink]="route.path"><i class="material-icons">{{route.icon}}</i>{{route.name}}</a>
+      </li>
+      <li routerLinkActive="active">
+        <a  routerLink="/profile"><i class="material-icons">account_box</i>Profile</a>
+      </li>
+      <li>
+        <a (click)="logout()"><i class="material-icons">exit_to_app</i>Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>

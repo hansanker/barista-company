@@ -7,20 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaristaComponent implements OnInit {
 
- items = [
-    {
-      name: 'Home',
-      path: ''
-    },
-    {
-      name: 'Checklist',
-      path: 'checklistBarista'
-    },
-    {
-      name: 'Profiel',
-      path: 'checklist'
-    }
-  ]
   constructor() { }
 
   ngOnInit() {

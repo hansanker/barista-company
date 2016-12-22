@@ -1,0 +1,162 @@
+<div class="row wrap">
+  <div class="col s12">
+    <div class="row">
+      <span class="title">Customer:</span>  {{checklist.customer}}
+    </div>
+    <div class="row">
+      <span class="title">Location:</span>  {{checklist.location || '-'}}
+    </div>
+    <div class="days center">
+      <h3>Days of work</h3>
+      <div class="row content-table"
+           *ngFor="let day of checklist.days">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s12">
+              <div class="row title">
+                <div class="col s12">
+                  <h5>
+                    {{day.date}}
+                  </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col m4 s12">
+                  <div class="row title">
+                    <div class="col s12">Startup</div>
+                  </div>
+                  <div class="row title">
+                    <div class="col s4">
+                      Start
+                    </div>
+                    <div class="col s4">
+                      End
+                    </div>
+                    <div class="col s4">
+                      Total
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s4">
+                      {{day.startup.start}}
+                    </div>
+                    <div class="col s4">
+                      {{day.startup.end}}
+                    </div>
+                    <div class="col s4">
+                      {{day.startup.total}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col m4 s12">
+                  <div class="row title">
+                    <div class="col s12">Delivery</div>
+                  </div>
+                  <div class="row title">
+                    <div class="col s4">
+                      Start
+                    </div>
+                    <div class="col s4">
+                      End
+                    </div>
+                    <div class="col s4">
+                      Total
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s4">
+                      {{day.delivery.start}}
+                    </div>
+                    <div class="col s4">
+                      {{day.delivery.end}}
+                    </div>
+                    <div class="col s4">
+                      {{day.delivery.total}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col m4 s12">
+                  <div class="row title">
+                    <div class="col s12">Cleaning</div>
+                  </div>
+                  <div class="row title">
+                    <div class="col s4">
+                      Start
+                    </div>
+                    <div class="col s4">
+                      End
+                    </div>
+                    <div class="col s4">
+                      Total
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s4">
+                      {{day.cleanup.start}}
+                    </div>
+                    <div class="col s4">
+                      {{day.cleanup.end}}
+                    </div>
+                    <div class="col s4">
+                      {{day.cleanup.total}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row total">
+            <div class="col s6">
+              <span class="title">Total:</span>  {{day.total}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="total-hours">
+        <h5 class="left">Total hours: {{checklist.totalHours}}</h5>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="checklist.expenses && checklist.expenses.length">
+      <div class="col s12">
+        <h3 class="center">Expenses</h3>
+        <table class="bordered hover">
+          <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Remark</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let expense of checklist.expenses">
+            <td>{{expense.date}}</td>
+            <td>{{expense.type}}</td>
+            <td>{{expense.amount}}</td>
+            <td>{{expense.remark}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="total-expenses">
+          <h5 class="left">Total expenses: {{checklist.totalExpenses}}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="row buttons">
+      <div class="col s12 m6">
+        <a class="waves-effect waves-light waves-block btn orange darken-2" (click)="approve()">
+          Approve
+        </a>
+      </div>
+      <div class="col s12 m6">
+        <a class="waves-effect waves-light waves-block btn red"
+           (click)="reject()">Reject</a>
+      </div>
+    </div>
+  </div>
+
+  <app-messages [checklistId]="checklistId"></app-messages>
+</div>
+

@@ -1,0 +1,15 @@
+.total {
+  font-weight: bold;
+  text-align: left;
+  line-height: 36px;
+  margin-top: -20px;
+}
+
+.remove {
+  float: right;
+}
+
+.remove .material-icons {
+  font-size: 20px;
+  vertical-align: top;
+}

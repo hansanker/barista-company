@@ -1,0 +1,23 @@
+.wrap {
+  padding-top: 20px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.total {
+  text-align: left;
+}
+
+.buttons {
+  margin-top: 40px;
+}
+
+.total-hours, .total-expenses {
+  overflow: hidden;
+}
+
+.total-expenses {
+  margin-top: 40px;
+}

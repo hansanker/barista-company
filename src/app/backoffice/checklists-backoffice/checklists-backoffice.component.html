@@ -1,0 +1,26 @@
+<div>
+  <h1 class="center">Checklists</h1>
+
+  <table class="bordered highlight" *ngIf="checklists &&  checklists.length">
+    <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let checklist of checklists" class="lighten-4"
+        [ngClass]="{'blue': checklist.status === 1,
+          'green': checklist.status === 2,
+          'red': checklist.status === 3}">
+      <td>{{checklist.customer}}</td>
+      <td>{{getStatus(checklist.status)}}</td>
+      <td class="right">
+        <a class="waves-effect waves-light btn orange darken-2"
+           [routerLink]="['/backoffice/checklist', checklist.$key]">View</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

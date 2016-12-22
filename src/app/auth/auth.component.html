@@ -1,3 +1,8 @@
-<p>
-  auth works!
-</p>
+<div class="row">
+  <div class="col s6 offset-s3 center">
+    <h1>Login</h1>
+    <p *ngIf="error" class="red-text">{{error}}</p>
+    <a class="waves-block red btn" (click)="loginWithGoogle()">Login with Google+</a>
+  </div>
+</div>
+

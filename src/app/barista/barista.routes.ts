@@ -1,20 +1,24 @@
 import { BaristaComponent} from './barista.component';
-import { ChecklistRoutes } from '../checklist/checklist.routes';
-// import { ChecklistBaristaComponent } from '../checklist/checklist-barista/checklist-barista.component';
+import { ChecklistsBaristaComponent } from "./checklists-barista/checklists-barista.component";
+import { ChecklistComponent } from "./checklist/checklist.component";
 
 export const BaristaRoutes = [
-  { path: 'barista',
+  { path: '',
     component: BaristaComponent,
     children: [
-      ...ChecklistRoutes,
+      {
+        path: 'checklists',
+        component: ChecklistsBaristaComponent,
+      },
+      {
+        path: 'checklist/:id',
+        component: ChecklistComponent
+      },
       {
         path: '',
-    redirectTo: 'barista/checklistBarista',
-    pathMatch: 'full'
+        redirectTo: '/checklists',
+        pathMatch: 'full'
       }
     ]
-
   }
 ];
-
-

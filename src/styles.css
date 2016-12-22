@@ -1,3 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-@import "../node_modules/materialize-css/dist/css/materialize.css";
+h1 {
+  font-size: 3rem;
+}
 
+.spin {
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

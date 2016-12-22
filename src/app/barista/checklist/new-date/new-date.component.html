@@ -1,0 +1,11 @@
+<div class="row new-date">
+  <div class="col m4 s12">
+    <input materialize="pickadate" placeholder="Choose a date" #date
+           [materializeParams]="[{format: getDateFormat()}]"
+           type="text" />
+  </div>
+  <div class="col m4 s12">
+    <a class="waves-effect waves-light waves-block btn orange darken-2" [ngClass]="{disabled: !date.value}"
+       (click)="addDate(date.value)">{{caption}}</a>
+  </div>
+</div>

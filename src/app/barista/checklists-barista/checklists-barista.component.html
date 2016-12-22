@@ -1,0 +1,45 @@
+<div>
+  <h1>Checklists</h1>
+  <form [formGroup]="checklistForm">
+    <div class="row">
+      <div class="col m4 s6 input-field">
+        <input type="text" id="customer" class="validate" formControlName="customer">
+        <label for="customer">Customer</label>
+      </div>
+      <div class="col m4 s6 input-field">
+        <input type="text" id="date" materialize="pickadate"
+               [materializeParams]="[{format: getDateFormat()}]"
+               formControlName="date" />
+        <label for="date">Date</label>
+      </div>
+      <div class="col m4 s12 input-field">
+        <a class="waves-effect waves-light waves-block btn orange darken-2" [ngClass]="{disabled: checklistForm.invalid}"
+           (click)="createChecklist(checklistForm.value)">
+          Create new checklist
+        </a>
+      </div>
+    </div>
+  </form>
+
+  <table class="bordered highlight" *ngIf="checklists &&  checklists.length">
+    <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let checklist of checklists" class="lighten-4"
+          [ngClass]="{'blue': checklist.status === 1,
+          'green': checklist.status === 2,
+          'red': checklist.status === 3}">
+        <td>{{checklist.customer}}</td>
+        <td>{{getStatus(checklist.status)}}</td>
+        <td class="right">
+          <a class="waves-effect waves-light btn orange darken-2" [routerLink]="['/barista/checklist', checklist.$key]">Edit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
