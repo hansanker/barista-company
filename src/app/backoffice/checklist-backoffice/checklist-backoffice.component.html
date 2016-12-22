@@ -11,12 +11,13 @@
     <tbody>
     <tr *ngFor="let checklist of checklists"
         [ngClass]="{'light-blue lighten-4': checklist.status === 1,
-          'green lighten-3': checklist.status === 2,
+          'green lighten-4': checklist.status === 2,
           'red lighten-1': checklist.status === 3}">
       <td>{{checklist.customer}}</td>
       <td>{{getStatus(checklist.status)}}</td>
       <td class="right">
-        <a class="waves-effect waves-light btn" [routerLink]="['/backoffice/checklist', checklist.$key]">View</a>
+        <a class="waves-effect waves-light btn orange darken-2"
+           [routerLink]="['/backoffice/checklist', checklist.$key]">View</a>
       </td>
     </tr>
     </tbody>

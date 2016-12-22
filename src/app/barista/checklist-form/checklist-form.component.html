@@ -159,12 +159,12 @@
 
     <div class="row buttons">
       <div class="col s12 m6">
-        <a class="waves-effect waves-light waves-block btn red lighten-1" (click)="save(checklistForm.value)">
+        <a class="waves-effect waves-light waves-block btn teal" (click)="save(checklistForm.value)">
           Save checklist
         </a>
       </div>
       <div class="col s12 m6">
-        <a class="waves-effect waves-light waves-block btn" [ngClass]="{disabled: checklistForm.invalid}"
+        <a class="waves-effect waves-light waves-block btn orange darken-2" [ngClass]="{disabled: checklistForm.invalid}"
            (click)="submit(checklistForm.value)">Submit checklist</a>
       </div>
     </div>

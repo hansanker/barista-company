@@ -7,7 +7,7 @@
                   [(ngModel)]="message" placeholder="Enter your message" required></textarea>
       </div>
       <div class="input-field col m2 s12">
-        <a class="waves-effect waves-light waves-block btn" (click)="sendMessage(messageForm.value)"
+        <a class="waves-effect waves-light waves-block btn orange darken-2" (click)="sendMessage(messageForm.value)"
                 [ngClass]="{disabled: !messageForm.valid}">Send</a>
       </div>
     </div>
