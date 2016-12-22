@@ -125,17 +125,7 @@
       </div>
     </div>
 
-    <div class="row new-date">
-      <div class="col m4 s12">
-        <input materialize="pickadate" placeholder="Choose a date" #date
-               [materializeParams]="[{format: getDateFormat()}]"
-               type="text" />
-      </div>
-      <div class="col m4 s12">
-        <a class="waves-effect waves-light waves-block btn" [ngClass]="{disabled: !date.value}"
-           (click)="addDate(date.value)">Add new date</a>
-      </div>
-    </div>
+    <app-new-date caption="Add new day" (dateAdded)="onDayAdded($event)"></app-new-date>
 
     <div class="row" formArrayName="expenses">
       <div class="col s12">
@@ -163,17 +153,7 @@
           </div>
         </div>
 
-        <div class="row new-date">
-          <div class="col m4 s12">
-            <input materialize="pickadate" placeholder="Choose a date" #date
-                   [materializeParams]="[{format: getDateFormat()}]"
-                   type="text" />
-          </div>
-          <div class="col m4 s12">
-            <a class="waves-effect waves-light waves-block btn" [ngClass]="{disabled: !date.value}"
-               (click)="addExpense(date.value)">Add new expense</a>
-          </div>
-        </div>
+        <app-new-date caption="Add new expense" (dateAdded)="onExpenseAdded($event)"></app-new-date>
       </div>
     </div>
 

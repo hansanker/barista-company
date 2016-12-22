@@ -11,12 +11,14 @@ import { SharedModule } from '../shared/shared.module';
 import { BaristaComponent } from './barista.component';
 import { ChecklistBaristaComponent } from './checklist-barista/checklist-barista.component';
 import { ChecklistFormComponent } from './checklist-form/checklist-form.component';
+import { NewDateComponent } from './checklist-form/new-date/new-date.component';
 
 @NgModule({
   declarations: [
     BaristaComponent,
     ChecklistBaristaComponent,
-    ChecklistFormComponent
+    ChecklistFormComponent,
+    NewDateComponent
   ],
   exports: [BaristaComponent],
   imports: [

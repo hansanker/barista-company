@@ -47,12 +47,12 @@ export class ChecklistFormComponent implements OnInit {
     });
   }
 
-  addDate(date: string) {
+  onDayAdded(date: string) {
     const control = <FormArray>this.checklistForm.controls['days'];
     control.push(this.initDay({date: date}));
   }
 
-  addExpense(date: string) {
+  onExpenseAdded(date: string) {
     const control = <FormArray>this.checklistForm.controls['expenses'];
     control.push(this.initExpense({date: date}));
   }
@@ -65,10 +65,6 @@ export class ChecklistFormComponent implements OnInit {
   removeExpense(i: number) {
     const control = <FormArray>this.checklistForm.controls['expenses'];
     control.removeAt(i);
-  }
-
-  getDateFormat() {
-    return this.utilService.getDatepickerFormat();
   }
 
   save(checklist: Checklist) {
