@@ -1,9 +1,11 @@
 <nav>
   <div class="nav-wrapper container">
-    <a href="#" class="brand-logo">Logo</a>
+    <a href="#" class="brand-logo">
+      <img src="assets/images/logo.png" class="logo" alt="Barista Company">
+    </a>
     <a materialize="sideNav" [materializeParams]="[{edge:'left', closeOnClick: true}]" href="#" data-activates="slide-out"
        class="button-collapse" *ngIf="isLoggedIn">
-      <i class="material-icons" >menu</i>
+      <i class="material-icons">menu</i>
     </a>
     <ul class="right hide-on-med-and-down" *ngIf="isLoggedIn">
       <li routerLinkActive="active" *ngFor="let route of getRoutes()">
