@@ -16,7 +16,7 @@ export const BackofficeRoutes = [
       },
       {
         path: '',
-        redirectTo: '/checklists',
+        redirectTo: 'checklists',
         pathMatch: 'full'
       }
     ]

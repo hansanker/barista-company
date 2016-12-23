@@ -16,7 +16,7 @@ export const BaristaRoutes = [
       },
       {
         path: '',
-        redirectTo: '/checklists',
+        redirectTo: 'checklists',
         pathMatch: 'full'
       }
     ]

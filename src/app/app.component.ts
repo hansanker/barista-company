@@ -12,7 +12,18 @@ export class AppComponent {
   constructor(private af: AngularFire, private router: Router) {
     this.af.auth.subscribe(authData => {
       if (authData) {
-        this.router.navigate(['profile']);
+        this.af.database.object(`users/${authData.uid}`).subscribe(user => {
+          switch (user.role) {
+            case 0:
+              this.router.navigate(['barista/checklists']);
+              break;
+            case 1:
+              this.router.navigate(['backoffice/checklists']);
+              break;
+            default:
+              this.router.navigate(['profile']);
+          }
+        });
       } else {
         this.router.navigate(['login']);
       }
