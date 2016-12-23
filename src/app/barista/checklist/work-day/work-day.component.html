@@ -9,13 +9,13 @@
         </div>
       </div>
       <div class="row">
-        <app-work-hours caption="Startup" [hours]="workDayForm.controls.startup"
+        <app-work-hours [hours]="workDayForm.controls.startup"
                         [date]="workDayForm.controls.date.value" caption="Startup"></app-work-hours>
 
-        <app-work-hours caption="Startup" [hours]="workDayForm.controls.delivery"
+        <app-work-hours [hours]="workDayForm.controls.delivery"
                         [date]="workDayForm.controls.date.value" caption="Delivery"></app-work-hours>
 
-        <app-work-hours caption="Startup" [hours]="workDayForm.controls.cleanup"
+        <app-work-hours [hours]="workDayForm.controls.cleanup"
                         [date]="workDayForm.controls.date.value" caption="Cleanup"></app-work-hours>
       </div>
     </div>
