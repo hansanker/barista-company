@@ -1,8 +1,40 @@
+<h1 class="center">{{isLoggingIn ? 'Login' : 'Register'}}</h1>
 <div class="row">
   <div class="col s6 offset-s3 center">
-    <h1>Login</h1>
-    <p *ngIf="error" class="red-text">{{error}}</p>
-    <a class="waves-block red btn" (click)="loginWithGoogle()">Login with Google+</a>
+    <div class="red-text" *ngIf="error">{{error}}</div>
+    <form [formGroup]="authForm">
+      <div class="input-field">
+        <input type="text" id="email" formControlName="email">
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field">
+        <input type="password" id="password" formControlName="password">
+        <label for="password">Password</label>
+      </div>
+
+      <div class="input-field">
+        <a class="waves-effect waves-light btn waves-block orange darken-2" [ngClass]="{disabled: !authForm.valid}"
+           (click)="submit(authForm.value)" >
+          {{isLoggingIn ? 'Login' : 'Register'}}
+        </a>
+      </div>
+
+      <div class="input-field">
+        <a class="waves-effect waves-light btn waves-block red" *ngIf="isLoggingIn"
+           (click)="loginWithGoogle(authForm.value)">
+          Login with Google+
+        </a>
+      </div>
+
+      <p class="text-center text-muted divider">-or-</p>
+
+      <div class="input-field">
+        <a class="waves-effect waves-light btn waves-block teal" (click)="toggleLogin()">
+          {{isLoggingIn ? 'Register' : 'Login'}}
+        </a>
+      </div>
+
+    </form>
   </div>
 </div>
 

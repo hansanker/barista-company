@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterializeModule } from 'angular2-materialize';
 import { AngularFireModule } from 'angularfire2';
@@ -16,11 +16,11 @@ import { ProfileComponent } from './profile/profile.component';
 
   // Initialize Firebase
   export const firebaseConfig = {
-    apiKey: "AIzaSyCWYY3poe4SpATY-tx2FAIaou-ToD2I1wM",
-    authDomain: "baristacompany-b618b.firebaseapp.com",
-    databaseURL: "https://baristacompany-b618b.firebaseio.com",
-    storageBucket: "baristacompany-b618b.appspot.com",
-    messagingSenderId: "623851489264"
+    apiKey: "AIzaSyDTywUOqrAU61m1jEGjExF8ep6EjwI8x5M",
+    authDomain: "barista-5651a.firebaseapp.com",
+    databaseURL: "https://barista-5651a.firebaseio.com",
+    storageBucket: "barista-5651a.appspot.com",
+    messagingSenderId: "1091191482407"
   };
 
 @NgModule({
@@ -33,6 +33,7 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterializeModule,
     AngularFireModule.initializeApp(firebaseConfig),
     RouterModule.forRoot(AppRoutes),

@@ -15,7 +15,8 @@
       <div class="input-field">
         <input id="name" name="name" type="text" placeholder="Name" [(ngModel)]="user.name" required>
       </div>
-      <a class="waves-effect waves-block waves-light btn orange darken-2" [ngClass]="{disabled: !profileForm.valid || updatingProfile}"
+      <a class="waves-effect waves-block waves-light btn orange darken-2"
+         [ngClass]="{disabled: !profileForm.valid || updatingProfile}"
          (click)="updateProfile(profileForm.value)">
         <i class="material-icons spin" *ngIf="updatingProfile">autorenew</i>
         <span *ngIf="!updatingProfile">Update</span>
